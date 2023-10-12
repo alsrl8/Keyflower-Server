@@ -7,6 +7,7 @@ import (
 
 func init() {
 	game.GenerateInitialTiles()
+	game.GenerateInitialMeeples()
 }
 
 func main() {

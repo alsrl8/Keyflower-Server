@@ -70,7 +70,6 @@ func (hub *Hub) broadcastWithExclusivePlayerID(message Message, exclusive []stri
 }
 
 func (hub *Hub) handleGameReady() {
-	generateInitialMeeples()
 	assignMeepleToPlayer(hub)
 	distributeInitialMeepleToPlayer(hub)
 

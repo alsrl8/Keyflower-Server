@@ -6,10 +6,6 @@ import (
 	"encoding/json"
 )
 
-func generateInitialMeeples() {
-	game.GenerateInitialMeeples()
-}
-
 func assignMeepleToPlayer(hub *Hub) {
 	playerIDs := make([]string, 0)
 	for _, playerID := range hub.clients {
