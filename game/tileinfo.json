@@ -1,0 +1,270 @@
+[
+  {
+    "name": "Alehouse",
+    "season": "Spring",
+    "costToUpgrade": {
+      "Iron": 1,
+      "Stone": 1,
+      "Wood": 1
+    },
+    "basicTileInfo": {
+      "point": 0,
+      "cost": {},
+      "reward": {
+        "Random Meeple": 1
+      }
+    },
+    "upgradedTileInfo": {
+      "point": 0,
+      "cost": {},
+      "reward": {
+        "Random Meeple": 2
+      }
+    }
+  },
+  {
+    "name": "Apprentice hall",
+    "season": "Spring",
+    "costToUpgrade": {
+      "Wood": 1,
+      "Stone": 1
+    },
+    "basicTileInfo": {
+      "point": 0,
+      "cost": {},
+      "reward": {
+        "Random Skill": 1
+      }
+    },
+    "upgradedTileInfo": {
+      "point": 3,
+      "cost": {},
+      "reward": {
+        "Random Skill": 2
+      }
+    }
+  },
+  {
+    "name": "Gold mine",
+    "season": "Spring",
+    "costToUpgrade": {
+      "Iron": 1,
+      "Stone": 1
+    },
+    "basicTileInfo": {
+      "point": 0,
+      "cost": {},
+      "reward": {
+        "Gold": 1
+      }
+    },
+    "upgradedTileInfo": {
+      "point": 3,
+      "cost": {},
+      "reward": {
+        "Gold": 2
+      }
+    }
+  },
+  {
+    "name": "Keymine",
+    "season": "Spring",
+    "costToUpgrade": {
+      "Anvil": 1
+    },
+    "basicTileInfo": {
+      "point": 0,
+      "cost": {},
+      "reward": {
+        "Iron": 1
+      }
+    },
+    "upgradedTileInfo": {
+      "point": 3,
+      "cost": {},
+      "reward": {
+        "Iron": 3
+      }
+    }
+  },
+  {
+    "name": "Keystone quarry",
+    "season": "Spring",
+    "costToUpgrade": {
+      "Pick axe": 1
+    },
+    "basicTileInfo": {
+      "point": 0,
+      "cost": {},
+      "reward": {
+        "Stone": 1
+      }
+    },
+    "upgradedTileInfo": {
+      "point": 3,
+      "cost": {},
+      "reward": {
+        "Stone": 3
+      }
+    }
+  },
+  {
+    "name": "Keywood",
+    "season": "Spring",
+    "costToUpgrade": {
+      "Saw": 1
+    },
+    "basicTileInfo": {
+      "point": 0,
+      "cost": {},
+      "reward": {
+        "Wood": 1
+      }
+    },
+    "upgradedTileInfo": {
+      "point": 3,
+      "cost": {},
+      "reward": {
+        "Wood": 3
+      }
+    }
+  },
+  {
+    "name": "Miner",
+    "season": "Spring",
+    "costToUpgrade": {
+      "Anvil": 1
+    },
+    "basicTileInfo": {
+      "point": 0,
+      "cost": {},
+      "reward": {
+        "Iron": 2
+      }
+    },
+    "upgradedTileInfo": {
+      "point": 3,
+      "cost": {},
+      "reward": {
+        "Iron": 1,
+        "Gold": 1
+      }
+    }
+  },
+  {
+    "name": "Peddler",
+    "season": "Spring",
+    "costToUpgrade": {
+      "Gold": 1
+    },
+    "basicTileInfo": {
+      "point": 0,
+      "cost": {
+        "Yellow Meeple": 1
+      },
+      "reward": {
+        "Green Meeple": 1
+      }
+    },
+    "upgradedTileInfo": {
+      "point": 0,
+      "cost": {
+        "Yellow Meeple": 1
+      },
+      "reward": {
+        "Green Meeple": 2
+      }
+    }
+  },
+  {
+    "name": "Quarryman",
+    "season": "Spring",
+    "costToUpgrade": {
+      "Pick axe": 1
+    },
+    "basicTileInfo": {
+      "point": 0,
+      "cost": {},
+      "reward": {
+        "Stone": 2
+      }
+    },
+    "upgradedTileInfo": {
+      "point": 3,
+      "cost": {},
+      "reward": {
+        "Stone": 1,
+        "Gold": 1
+      }
+    }
+  },
+  {
+    "name": "Stable",
+    "season": "Spring",
+    "costToUpgrade": {
+      "Wood": 1,
+      "Iron": 1
+    },
+    "basicTileInfo": {
+      "point": 0,
+      "cost": {},
+      "reward": {
+        "Transport": 2,
+        "Upgrade": 1
+      }
+    },
+    "upgradedTileInfo": {
+      "point": 5,
+      "cost": {},
+      "reward": {
+        "Transport": 4,
+        "Upgrade": 2
+      }
+    }
+  },
+  {
+    "name": "Woodcutter",
+    "season": "Spring",
+    "costToUpgrade": {
+      "Saw": 1
+    },
+    "basicTileInfo": {
+      "point": 0,
+      "cost": {},
+      "reward": {
+        "Wood": 2
+      }
+    },
+    "upgradedTileInfo": {
+      "point": 3,
+      "cost": {},
+      "reward": {
+        "Wood": 1,
+        "Gold": 1
+      }
+    }
+  },
+  {
+    "name": "Workshop",
+    "season": "Spring",
+    "costToUpgrade": {
+      "Any Resource": 2
+    },
+    "basicTileInfo": {
+      "point": 0,
+      "cost": {},
+      "reward": {
+        "Any Resource": 1
+      }
+    },
+    "upgradedTileInfo": {
+      "point": 3,
+      "cost": {},
+      "reward": {
+        "Iron": 1,
+        "Stone": 1,
+        "Wood": 1
+      }
+    }
+  }
+]
