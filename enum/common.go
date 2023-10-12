@@ -18,8 +18,7 @@ const (
 type PlayerActionType string
 
 const (
-	MoveMeeple    PlayerActionType = "MoveMeeple"
-	SetTileBidNum PlayerActionType = "SetTileBidNum"
+	MoveMeeple PlayerActionType = "MoveMeeple"
 )
 
 type MeepleColor string
@@ -39,11 +38,4 @@ const (
 	Summer Season = "Summer"
 	Autumn Season = "Autumn"
 	Winter Season = "Winter"
-)
-
-type IsUpgraded bool
-
-const (
-	NotUpgraded IsUpgraded = false
-	Upgraded    IsUpgraded = true
 )

@@ -96,14 +96,6 @@ func (hub *Hub) handlePlayerAction(playerID string, endAction PlayerActionData) 
 		}
 		log.Printf("player(%s): Move Meeple(%s) to Tile(%s)", playerID, moveMeepleData.MeepleID, moveMeepleData.TileID)
 		sendSignalMeepleMovement(hub, playerID, moveMeepleData)
-	case enum.SetTileBidNum:
-		setTileBidNumData := SetTileBidNumData{}
-		err := json.Unmarshal([]byte(endAction.Data), &setTileBidNumData)
-		if err != nil {
-			log.Printf("Failed to deserialization set tile bid number data: %+v", err)
-		}
-		log.Printf("player(%s): Set Tile(%s)'s bidNum(%d)", playerID, setTileBidNumData.TileID, setTileBidNumData.BidNum)
-		sendSignalSetTileBidNum(hub, playerID, setTileBidNumData)
 	}
 }
 
@@ -143,8 +135,6 @@ func (hub *Hub) run(ws *websocket.Conn) {
 			log.Printf("Failed to close connection: %+v", ws)
 		}
 	}(ws)
-
-	game.GenerateInitialTiles()
 
 	for {
 		_, msg, err := ws.ReadMessage()
@@ -193,8 +183,9 @@ func (hub *Hub) run(ws *websocket.Conn) {
 }
 
 func Run() {
+
 	hub := Hub{
-		PlayerNum: 2,
+		PlayerNum: 1,
 		clients:   make(map[*websocket.Conn]string),
 	}
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

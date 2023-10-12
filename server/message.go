@@ -15,12 +15,6 @@ type MoveMeepleData struct {
 	TileID   string `json:"tileID"`
 }
 
-type SetTileBidNumData struct {
-	TileID   string `json:"tileID"`
-	PlayerID string `json:"playerID"`
-	BidNum   int    `json:"bidNum"`
-}
-
 type NewPlayerData struct {
 	NewPlayerID    string `json:"newPlayerID"`
 	TotalPlayerNum int    `json:"totalPlayerNum"`

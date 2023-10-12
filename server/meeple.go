@@ -22,10 +22,6 @@ func getAllMeeple() []string {
 	return game.GetAllMeepleID()
 }
 
-func getAllMeepleIDsByPlayerID(playerID string) []string {
-	return game.GetAllMeepleIDsByPlayerID(playerID)
-}
-
 func distributeInitialMeepleToPlayer(hub *Hub) {
 	for client, _ := range hub.clients {
 		//meepleIDs := getAllMeepleIDsByPlayerID(playerID)
@@ -66,25 +62,6 @@ func sendSignalMeepleMovement(hub *Hub, playerID string, moveMeepleData MoveMeep
 		Data: convertStructToJsonString(data),
 	}
 
-	exclusive := make([]string, 0)
-	exclusive = append(exclusive, playerID)
-	hub.broadcastWithExclusivePlayerID(message, exclusive)
-}
-
-func sendSignalSetTileBidNum(hub *Hub, playerID string, setTileBidNumData SetTileBidNumData) {
-	data := OtherPlayerActionData{
-		PlayerID: playerID,
-		Actions:  make([]PlayerActionData, 0),
-	}
-	setTileBidNumData.PlayerID = playerID
-	data.Actions = append(data.Actions, PlayerActionData{
-		Type: enum.SetTileBidNum,
-		Data: convertStructToJsonString(setTileBidNumData),
-	})
-	message := Message{
-		Type: enum.OtherPlayerAction,
-		Data: convertStructToJsonString(data),
-	}
 	exclusive := make([]string, 0)
 	exclusive = append(exclusive, playerID)
 	hub.broadcastWithExclusivePlayerID(message, exclusive)

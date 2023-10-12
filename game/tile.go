@@ -17,7 +17,7 @@ type Tile struct {
 type TileInfo struct {
 	Name             string `json:"name"`
 	enum.Season      `json:"season"`
-	enum.IsUpgraded  `json:"isUpgraded"`
+	IsUpgraded       bool           `json:"isUpgraded"`
 	CostToUpgrade    map[string]int `json:"costToUpgrade"`
 	BasicTileInfo    DetailTileInfo `json:"basicTileInfo"`
 	UpgradedTileInfo DetailTileInfo `json:"upgradedTileInfo"`
