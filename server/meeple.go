@@ -20,7 +20,6 @@ func getAllMeeple() []string {
 
 func (hub *Hub) distributeInitialMeepleToPlayer() {
 	for client, _ := range hub.clients {
-		//meepleIDs := getAllMeepleIDsByPlayerID(playerID)
 		meepleIDs := getAllMeeple()
 
 		for _, meepleID := range meepleIDs {
@@ -36,7 +35,7 @@ func (hub *Hub) distributeInitialMeepleToPlayer() {
 				Type: enum.NewMeeple,
 				Data: string(data),
 			}
-			err = hub.sendMessageToClient(client, message)
+			err = hub.sendMessageToClient(client, &message)
 			if err != nil {
 				continue
 			}

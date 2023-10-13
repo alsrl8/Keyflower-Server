@@ -70,13 +70,3 @@ func GetAllMeepleID() []string {
 	}
 	return meepleIDs
 }
-
-func GetAllMeepleIDsByPlayerID(playerID string) []string {
-	meepleIDs := make([]string, 0)
-	for meepleID, meeple := range MeepleMap {
-		if meeple.OwnerID == playerID {
-			meepleIDs = append(meepleIDs, meepleID)
-		}
-	}
-	return meepleIDs
-}

@@ -1,5 +1,5 @@
 package server
 
-func (hub *Hub) handleMeepleAction() {
-	
+func (hub *Hub) handleMeepleAction(data *MeepleActionData) {
+
 }

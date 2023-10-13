@@ -14,6 +14,6 @@ func (hub *Hub) SendGameReadySignal() {
 			PlayerTurn: turn,
 		})
 		message := Message{Type: enum.GameReady, Data: string(data)}
-		_ = hub.sendMessageToClient(client, message)
+		_ = hub.sendMessageToClient(client, &message)
 	}
 }

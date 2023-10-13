@@ -9,7 +9,7 @@ import (
 
 func (hub *Hub) handleRegister(client *websocket.Conn) {
 	newID := utils.GenerateRandomID()
-	err := hub.sendMessageToClient(client, Message{
+	err := hub.sendMessageToClient(client, &Message{
 		enum.Register,
 		newID,
 	})
@@ -24,5 +24,5 @@ func (hub *Hub) handleRegister(client *websocket.Conn) {
 func (hub *Hub) NotifyNewClient(newClientID string) {
 	newPlayerData, _ := json.Marshal(NewPlayerData{NewPlayerID: newClientID, TotalPlayerNum: len(hub.clients)})
 	message := Message{Type: enum.NewPlayer, Data: string(newPlayerData)}
-	hub.broadcast(message)
+	hub.broadcast(&message)
 }

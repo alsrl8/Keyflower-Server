@@ -21,7 +21,7 @@ type Hub struct {
 	mu            sync.Mutex
 }
 
-func (hub *Hub) sendMessageToClient(client *websocket.Conn, message Message) error {
+func (hub *Hub) sendMessageToClient(client *websocket.Conn, message *Message) error {
 	data := utils.ConvertStructToJsonString(message)
 	err := client.WriteMessage(websocket.TextMessage, data)
 	if err != nil {
@@ -32,7 +32,7 @@ func (hub *Hub) sendMessageToClient(client *websocket.Conn, message Message) err
 	return nil
 }
 
-func (hub *Hub) broadcast(message Message) {
+func (hub *Hub) broadcast(message *Message) {
 	for client := range hub.clients {
 		err := hub.sendMessageToClient(client, message)
 		if err != nil {
@@ -41,7 +41,7 @@ func (hub *Hub) broadcast(message Message) {
 	}
 }
 
-func (hub *Hub) broadcastWithExclusiveConn(message Message, exclusive []*websocket.Conn) {
+func (hub *Hub) broadcastWithExclusiveConn(message *Message, exclusive []*websocket.Conn) {
 	for client := range hub.clients {
 		if utils.IsStructInSlice(client, exclusive) {
 			continue
@@ -53,7 +53,7 @@ func (hub *Hub) broadcastWithExclusiveConn(message Message, exclusive []*websock
 	}
 }
 
-func (hub *Hub) broadcastWithExclusivePlayerID(message Message, exclusive []string) {
+func (hub *Hub) broadcastWithExclusivePlayerID(message *Message, exclusive []string) {
 	for client, playerID := range hub.clients {
 		if utils.IsStructInSlice(playerID, exclusive) {
 			continue
@@ -141,13 +141,12 @@ func (hub *Hub) run(ws *websocket.Conn) {
 		case enum.MeepleAction:
 			data := MeepleActionData{}
 			utils.ConvertJsonStringToStruct(&data, []byte(serverMessage.Data))
-			log.Printf("Success!! -> %+v", data) // TODO Meeple Action을 핸들링하는 로직 추가
+			hub.handleMeepleAction(&data)
 		}
 	}
 }
 
 func Run() {
-
 	hub := Hub{
 		PlayerNum: 1,
 		clients:   make(map[*websocket.Conn]string),

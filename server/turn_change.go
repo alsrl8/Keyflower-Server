@@ -9,7 +9,7 @@ import (
 func (hub *Hub) sendTurnChangeData() {
 	data, _ := json.Marshal(TurnChangeData{Turn: hub.currentTurn})
 	message := Message{Type: enum.TurnChange, Data: string(data)}
-	hub.broadcast(message)
+	hub.broadcast(&message)
 }
 
 func sendSeasonChangeData(hub *Hub) {
@@ -18,5 +18,5 @@ func sendSeasonChangeData(hub *Hub) {
 		log.Printf("Failed to parse SeasonChangeData into json string: %+v", err)
 	}
 	message := Message{Type: enum.SeasonChange, Data: string(data)}
-	hub.broadcast(message)
+	hub.broadcast(&message)
 }

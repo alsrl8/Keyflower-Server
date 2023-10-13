@@ -12,5 +12,5 @@ func (hub *Hub) putTile(tile *game.Tile) {
 		Type: enum.NewTile,
 		Data: string(data),
 	}
-	hub.broadcast(message)
+	hub.broadcast(&message)
 }
