@@ -85,19 +85,6 @@ func (hub *Hub) handleGameReady() {
 	sendTurnChangeData(hub)
 }
 
-func (hub *Hub) handlePlayerAction(playerID string, endAction PlayerActionData) {
-	switch endAction.Type {
-	case enum.MoveMeeple:
-		moveMeepleData := MoveMeepleData{}
-		err := json.Unmarshal([]byte(endAction.Data), &moveMeepleData)
-		if err != nil {
-			log.Printf("Failed to deserialization move meeple data: %+v", err)
-		}
-		log.Printf("player(%s): Move Meeple(%s) to Tile(%s)", playerID, moveMeepleData.MeepleID, moveMeepleData.TileID)
-		sendSignalMeepleMovement(hub, playerID, moveMeepleData)
-	}
-}
-
 func (hub *Hub) nextTurn() {
 	hub.mu.Lock()
 	defer hub.mu.Unlock()
@@ -160,23 +147,7 @@ func (hub *Hub) run(ws *websocket.Conn) {
 				hub.handleGameReady()
 			}
 		case enum.EndPlayerAction:
-			var endPlayerActions EndPlayerActionData
-			data := serverMessage.Data
-			_ = json.Unmarshal([]byte(data), &endPlayerActions)
-			if len(endPlayerActions.Actions) == 0 {
-				hub.playerSkipCnt++
-				if hub.playerSkipCnt == hub.PlayerNum {
-					hub.playerSkipCnt = 0
-					hub.nextSeason()
-				}
-			} else {
-				hub.playerSkipCnt = 0
-			}
-			for _, playerActionData := range endPlayerActions.Actions {
-				hub.handlePlayerAction(endPlayerActions.PlayerID, playerActionData)
-			}
-			hub.nextTurn()
-			sendTurnChangeData(hub)
+
 		}
 	}
 }

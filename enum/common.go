@@ -3,22 +3,15 @@ package enum
 type ServerMessageType string
 
 const (
-	CommonMessage     ServerMessageType = "CommonMessage"
-	Register          ServerMessageType = "Register"
-	NewPlayer         ServerMessageType = "NewPlayer"
-	GameReady         ServerMessageType = "GameReady"
-	NewMeeple         ServerMessageType = "NewMeeple"
-	NewTile           ServerMessageType = "NewTile"
-	TurnChange        ServerMessageType = "TurnChange"
-	SeasonChange      ServerMessageType = "SeasonChange"
-	EndPlayerAction   ServerMessageType = "EndPlayerAction"
-	OtherPlayerAction ServerMessageType = "OtherPlayerAction"
-)
-
-type PlayerActionType string
-
-const (
-	MoveMeeple PlayerActionType = "MoveMeeple"
+	CommonMessage   ServerMessageType = "CommonMessage"
+	Register        ServerMessageType = "Register"
+	NewPlayer       ServerMessageType = "NewPlayer"
+	GameReady       ServerMessageType = "GameReady"
+	NewMeeple       ServerMessageType = "NewMeeple"
+	NewTile         ServerMessageType = "NewTile"
+	TurnChange      ServerMessageType = "TurnChange"
+	SeasonChange    ServerMessageType = "SeasonChange"
+	EndPlayerAction ServerMessageType = "EndPlayerAction"
 )
 
 type MeepleColor string

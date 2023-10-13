@@ -10,11 +10,6 @@ type Message struct {
 	Data string                 `json:"data"`
 }
 
-type MoveMeepleData struct {
-	MeepleID string `json:"meepleID"`
-	TileID   string `json:"tileID"`
-}
-
 type NewPlayerData struct {
 	NewPlayerID    string `json:"newPlayerID"`
 	TotalPlayerNum int    `json:"totalPlayerNum"`
@@ -27,21 +22,6 @@ type GameReadyData struct {
 
 type TurnChangeData struct {
 	Turn int `json:"turn"`
-}
-
-type EndPlayerActionData struct {
-	PlayerID string             `json:"playerID"`
-	Actions  []PlayerActionData `json:"actions"`
-}
-
-type OtherPlayerActionData struct {
-	PlayerID string             `json:"playerID"`
-	Actions  []PlayerActionData `json:"actions"`
-}
-
-type PlayerActionData struct {
-	Type enum.PlayerActionType `json:"type"`
-	Data string                `json:"data"`
 }
 
 type SeasonChangeData struct {

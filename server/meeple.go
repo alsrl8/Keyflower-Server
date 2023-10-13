@@ -43,22 +43,3 @@ func distributeInitialMeepleToPlayer(hub *Hub) {
 		}
 	}
 }
-
-func sendSignalMeepleMovement(hub *Hub, playerID string, moveMeepleData MoveMeepleData) {
-	data := OtherPlayerActionData{
-		PlayerID: playerID,
-		Actions:  make([]PlayerActionData, 0),
-	}
-	data.Actions = append(data.Actions, PlayerActionData{
-		Type: enum.MoveMeeple,
-		Data: convertStructToJsonString(moveMeepleData),
-	})
-	message := Message{
-		Type: enum.OtherPlayerAction,
-		Data: convertStructToJsonString(data),
-	}
-
-	exclusive := make([]string, 0)
-	exclusive = append(exclusive, playerID)
-	hub.broadcastWithExclusivePlayerID(message, exclusive)
-}
