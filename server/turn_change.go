@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-func sendTurnChangeData(hub *Hub) {
+func (hub *Hub) sendTurnChangeData() {
 	data, _ := json.Marshal(TurnChangeData{Turn: hub.currentTurn})
 	message := Message{Type: enum.TurnChange, Data: string(data)}
 	hub.broadcast(message)

@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 )
 
-func assignMeepleToPlayer(hub *Hub) {
+func (hub *Hub) assignMeepleToPlayer() {
 	playerIDs := make([]string, 0)
 	for _, playerID := range hub.clients {
 		playerIDs = append(playerIDs, playerID)
@@ -18,7 +18,7 @@ func getAllMeeple() []string {
 	return game.GetAllMeepleID()
 }
 
-func distributeInitialMeepleToPlayer(hub *Hub) {
+func (hub *Hub) distributeInitialMeepleToPlayer() {
 	for client, _ := range hub.clients {
 		//meepleIDs := getAllMeepleIDsByPlayerID(playerID)
 		meepleIDs := getAllMeeple()

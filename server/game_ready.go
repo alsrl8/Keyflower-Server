@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 )
 
-func SendGameReadySignal(hub *Hub) {
+func (hub *Hub) SendGameReadySignal() {
 	turn := 0
 	for client, clientID := range hub.clients {
 		turn += 1

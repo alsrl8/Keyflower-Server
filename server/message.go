@@ -27,3 +27,15 @@ type TurnChangeData struct {
 type SeasonChangeData struct {
 	enum.Season `json:"season"`
 }
+
+type MeepleActionData struct {
+	PlayerID            string                   `json:"playerID"`
+	DetailMeepleActions []DetailMeepleActionData `json:"detailMeepleActions"`
+}
+
+type DetailMeepleActionData struct {
+	Type         enum.MeepleActionType `json:"type"`
+	MeepleID     string                `json:"meepleID"`
+	TargetTileID string                `json:"targetTileID"`
+	Number       int                   `json:"number"`
+}

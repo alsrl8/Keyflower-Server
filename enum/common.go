@@ -3,32 +3,39 @@ package enum
 type ServerMessageType string
 
 const (
-	CommonMessage   ServerMessageType = "CommonMessage"
-	Register        ServerMessageType = "Register"
-	NewPlayer       ServerMessageType = "NewPlayer"
-	GameReady       ServerMessageType = "GameReady"
-	NewMeeple       ServerMessageType = "NewMeeple"
-	NewTile         ServerMessageType = "NewTile"
-	TurnChange      ServerMessageType = "TurnChange"
-	SeasonChange    ServerMessageType = "SeasonChange"
-	EndPlayerAction ServerMessageType = "EndPlayerAction"
+	CommonMessage ServerMessageType = "CommonMessage"
+	Register                        = "Register"
+	NewPlayer                       = "NewPlayer"
+	GameReady                       = "GameReady"
+	NewMeeple                       = "NewMeeple"
+	NewTile                         = "NewTile"
+	TurnChange                      = "TurnChange"
+	SeasonChange                    = "SeasonChange"
+	MeepleAction                    = "MeepleAction"
 )
 
 type MeepleColor string
 
 const (
 	Red    MeepleColor = "Red"
-	Blue   MeepleColor = "Blue"
-	Yellow MeepleColor = "Yellow"
-	Green  MeepleColor = "Green"
-	Purple MeepleColor = "Purple"
+	Blue               = "Blue"
+	Yellow             = "Yellow"
+	Green              = "Green"
+	Purple             = "Purple"
 )
 
 type Season string
 
 const (
 	Spring Season = "Spring"
-	Summer Season = "Summer"
-	Autumn Season = "Autumn"
-	Winter Season = "Winter"
+	Summer        = "Summer"
+	Autumn        = "Autumn"
+	Winter        = "Winter"
+)
+
+type MeepleActionType int
+
+const (
+	Bid MeepleActionType = iota
+	Play
 )

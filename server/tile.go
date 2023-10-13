@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 )
 
-func putTile(hub *Hub, tile *game.Tile) {
+func (hub *Hub) putTile(tile *game.Tile) {
 	data, _ := json.Marshal(tile)
 	message := Message{
 		Type: enum.NewTile,

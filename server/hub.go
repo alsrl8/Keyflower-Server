@@ -3,7 +3,7 @@ package server
 import (
 	"Server/enum"
 	"Server/game"
-	"encoding/json"
+	"Server/utils"
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
@@ -22,12 +22,8 @@ type Hub struct {
 }
 
 func (hub *Hub) sendMessageToClient(client *websocket.Conn, message Message) error {
-	data, err := json.Marshal(message)
-	if err != nil {
-		log.Printf("Failed to deserialization server message: %+v", err)
-		return err
-	}
-	err = client.WriteMessage(websocket.TextMessage, data)
+	data := utils.ConvertStructToJsonString(message)
+	err := client.WriteMessage(websocket.TextMessage, data)
 	if err != nil {
 		log.Printf("Failed to write message to client[%+v]: %+v", client, err)
 		return err
@@ -47,7 +43,7 @@ func (hub *Hub) broadcast(message Message) {
 
 func (hub *Hub) broadcastWithExclusiveConn(message Message, exclusive []*websocket.Conn) {
 	for client := range hub.clients {
-		if isStructInSlice(client, exclusive) {
+		if utils.IsStructInSlice(client, exclusive) {
 			continue
 		}
 		err := hub.sendMessageToClient(client, message)
@@ -59,7 +55,7 @@ func (hub *Hub) broadcastWithExclusiveConn(message Message, exclusive []*websock
 
 func (hub *Hub) broadcastWithExclusivePlayerID(message Message, exclusive []string) {
 	for client, playerID := range hub.clients {
-		if isStructInSlice(playerID, exclusive) {
+		if utils.IsStructInSlice(playerID, exclusive) {
 			continue
 		}
 		err := hub.sendMessageToClient(client, message)
@@ -70,19 +66,19 @@ func (hub *Hub) broadcastWithExclusivePlayerID(message Message, exclusive []stri
 }
 
 func (hub *Hub) handleGameReady() {
-	assignMeepleToPlayer(hub)
-	distributeInitialMeepleToPlayer(hub)
+	hub.assignMeepleToPlayer()
+	hub.distributeInitialMeepleToPlayer()
 
 	// TODO 현재는 6개로 고정하고 나중에 플레이어 숫자에 따라 초기 타일 숫자를 조절할 것
 	tiles := game.GetInitialSpringTiles(6)
 	for _, tile := range tiles {
-		putTile(hub, tile)
+		hub.putTile(tile)
 	}
 
 	hub.currentSeason = enum.Spring
-	SendGameReadySignal(hub)
+	hub.SendGameReadySignal()
 	hub.nextTurn()
-	sendTurnChangeData(hub)
+	hub.sendTurnChangeData()
 }
 
 func (hub *Hub) nextTurn() {
@@ -133,11 +129,7 @@ func (hub *Hub) run(ws *websocket.Conn) {
 		log.Println("Message from client: ", string(msg))
 
 		var serverMessage Message
-		err = json.Unmarshal(msg, &serverMessage)
-		if err != nil {
-			log.Printf("Failed to deserialize server message: %+v", err)
-			continue
-		}
+		utils.ConvertJsonStringToStruct(&serverMessage, msg)
 
 		switch serverMessage.Type {
 		case enum.Register:
@@ -146,8 +138,10 @@ func (hub *Hub) run(ws *websocket.Conn) {
 				log.Println("All players entered!")
 				hub.handleGameReady()
 			}
-		case enum.EndPlayerAction:
-
+		case enum.MeepleAction:
+			data := MeepleActionData{}
+			utils.ConvertJsonStringToStruct(&data, []byte(serverMessage.Data))
+			log.Printf("Success!! -> %+v", data) // TODO Meeple Action을 핸들링하는 로직 추가
 		}
 	}
 }
