@@ -34,8 +34,9 @@ type MeepleActionData struct {
 }
 
 type DetailMeepleActionData struct {
-	Type         enum.MeepleActionType `json:"type"`
-	MeepleID     string                `json:"meepleID"`
-	TargetTileID string                `json:"targetTileID"`
-	Number       int                   `json:"number"`
+	Type              enum.MeepleActionType `json:"type"`
+	MeepleID          string                `json:"meepleID"`
+	TargetTileID      string                `json:"targetTileID"`
+	Number            int                   `json:"number"`
+	ChildrenMeepleIDs []string              `json:"childrenMeepleIDs"`
 }

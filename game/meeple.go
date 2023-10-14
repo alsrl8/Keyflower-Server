@@ -12,9 +12,11 @@ type Meeple struct {
 }
 
 var MeepleMap map[string]*Meeple
+var ChildrenMeepleMap map[string][]string
 
 func init() {
 	MeepleMap = make(map[string]*Meeple)
+	ChildrenMeepleMap = make(map[string][]string)
 }
 
 func getInitialMeepleNumbers() (meeples map[enum.MeepleColor]int) {
@@ -69,4 +71,11 @@ func GetAllMeepleID() []string {
 		meepleIDs = append(meepleIDs, meepleID)
 	}
 	return meepleIDs
+}
+
+func SetChildrenMeeples(parentMeepleID string, childrenMeepleIDs []string) {
+	ChildrenMeepleMap[parentMeepleID] = make([]string, 0)
+	for _, childMeepleID := range childrenMeepleIDs {
+		ChildrenMeepleMap[parentMeepleID] = append(ChildrenMeepleMap[parentMeepleID], childMeepleID)
+	}
 }

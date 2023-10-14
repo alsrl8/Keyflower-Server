@@ -81,17 +81,6 @@ func (hub *Hub) handleGameReady() {
 	hub.sendTurnChangeData()
 }
 
-func (hub *Hub) nextTurn() {
-	hub.mu.Lock()
-	defer hub.mu.Unlock()
-
-	hub.currentTurn++
-	if hub.currentTurn > hub.PlayerNum {
-		hub.currentTurn = 1
-		hub.playerSkipCnt = 0
-	}
-}
-
 func (hub *Hub) nextSeason() {
 	hub.mu.Lock()
 	defer hub.mu.Unlock()
@@ -107,7 +96,7 @@ func (hub *Hub) nextSeason() {
 		// TODO 겨울 라운드가 끝나고 점수 계산하는 기능 추가
 		break
 	}
-	sendSeasonChangeData(hub)
+	hub.sendSeasonChangeData()
 }
 
 func (hub *Hub) run(ws *websocket.Conn) {
@@ -148,7 +137,7 @@ func (hub *Hub) run(ws *websocket.Conn) {
 
 func Run() {
 	hub := Hub{
-		PlayerNum: 1,
+		PlayerNum: 2,
 		clients:   make(map[*websocket.Conn]string),
 	}
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
