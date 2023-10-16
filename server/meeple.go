@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 )
 
-func assignMeepleToPlayer(hub *Hub) {
+func (hub *Hub) assignMeepleToPlayer() {
 	playerIDs := make([]string, 0)
 	for _, playerID := range hub.clients {
 		playerIDs = append(playerIDs, playerID)
@@ -18,9 +18,8 @@ func getAllMeeple() []string {
 	return game.GetAllMeepleID()
 }
 
-func distributeInitialMeepleToPlayer(hub *Hub) {
+func (hub *Hub) distributeInitialMeepleToPlayer() {
 	for client, _ := range hub.clients {
-		//meepleIDs := getAllMeepleIDsByPlayerID(playerID)
 		meepleIDs := getAllMeeple()
 
 		for _, meepleID := range meepleIDs {
@@ -36,29 +35,10 @@ func distributeInitialMeepleToPlayer(hub *Hub) {
 				Type: enum.NewMeeple,
 				Data: string(data),
 			}
-			err = hub.sendMessageToClient(client, message)
+			err = hub.sendMessageToClient(client, &message)
 			if err != nil {
 				continue
 			}
 		}
 	}
-}
-
-func sendSignalMeepleMovement(hub *Hub, playerID string, moveMeepleData MoveMeepleData) {
-	data := OtherPlayerActionData{
-		PlayerID: playerID,
-		Actions:  make([]PlayerActionData, 0),
-	}
-	data.Actions = append(data.Actions, PlayerActionData{
-		Type: enum.MoveMeeple,
-		Data: convertStructToJsonString(moveMeepleData),
-	})
-	message := Message{
-		Type: enum.OtherPlayerAction,
-		Data: convertStructToJsonString(data),
-	}
-
-	exclusive := make([]string, 0)
-	exclusive = append(exclusive, playerID)
-	hub.broadcastWithExclusivePlayerID(message, exclusive)
 }

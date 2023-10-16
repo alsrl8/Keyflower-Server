@@ -11,6 +11,7 @@ import (
 type Tile struct {
 	ID        string `json:"tileID"`
 	OwnerID   string `json:"ownerID"`
+	BidNum    int
 	*TileInfo `json:"tileInfo"`
 }
 
@@ -67,8 +68,8 @@ func getSeasonTileIDs(season enum.Season) (tileIDs []string) {
 	return
 }
 
-func GetInitialSpringTiles(requiredNum int) (tiles []*Tile) {
-	springTileIDs := getSeasonTileIDs(enum.Spring)
+func GetRoundTilesBySeason(season enum.Season, requiredNum int) (tiles []*Tile) {
+	springTileIDs := getSeasonTileIDs(season)
 	utils.ShuffleSlice(springTileIDs)
 	for _, tileID := range springTileIDs {
 		tiles = append(tiles, TileMap[tileID])

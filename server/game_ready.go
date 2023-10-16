@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 )
 
-func SendGameReadySignal(hub *Hub) {
+func (hub *Hub) SendGameReadySignal() {
 	turn := 0
 	for client, clientID := range hub.clients {
 		turn += 1
@@ -14,6 +14,6 @@ func SendGameReadySignal(hub *Hub) {
 			PlayerTurn: turn,
 		})
 		message := Message{Type: enum.GameReady, Data: string(data)}
-		_ = hub.sendMessageToClient(client, message)
+		_ = hub.sendMessageToClient(client, &message)
 	}
 }
