@@ -11,7 +11,15 @@ func (hub *Hub) handleMeepleAction(meepleActionData *MeepleActionData) {
 	for _, detailMeepleAction := range meepleActionData.DetailMeepleActions {
 		parentMeepleID := detailMeepleAction.MeepleID
 		game.SetChildrenMeeples(parentMeepleID, detailMeepleAction.ChildrenMeepleIDs)
-		log.Printf("Meeple Group: parent(%s): %+v", parentMeepleID, game.ChildrenMeepleMap[detailMeepleAction.MeepleID])
+	}
+
+	for _, detailMeepleAction := range meepleActionData.DetailMeepleActions {
+		tileID := detailMeepleAction.TargetTileID
+		if game.TileMap[tileID].BidNum < detailMeepleAction.Number {
+			game.TileMap[tileID].BidNum = detailMeepleAction.Number
+			game.TileMap[tileID].OwnerID = meepleActionData.PlayerID
+			log.Printf("Tile Owner Changed. Tile(%s) BidNum(%d) Owner(%s)", tileID, game.TileMap[tileID].BidNum, game.TileMap[tileID].OwnerID)
+		}
 	}
 
 	data := utils.ConvertStructToJsonString(meepleActionData)

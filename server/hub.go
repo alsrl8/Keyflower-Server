@@ -70,7 +70,7 @@ func (hub *Hub) handleGameReady() {
 	hub.distributeInitialMeepleToPlayer()
 
 	// TODO 현재는 6개로 고정하고 나중에 플레이어 숫자에 따라 초기 타일 숫자를 조절할 것
-	tiles := game.GetInitialSpringTiles(6)
+	tiles := game.GetRoundTilesBySeason(enum.Spring, 6)
 	for _, tile := range tiles {
 		hub.putTile(tile)
 	}
@@ -79,24 +79,6 @@ func (hub *Hub) handleGameReady() {
 	hub.SendGameReadySignal()
 	hub.nextTurn()
 	hub.sendTurnChangeData()
-}
-
-func (hub *Hub) nextSeason() {
-	hub.mu.Lock()
-	defer hub.mu.Unlock()
-
-	switch hub.currentSeason {
-	case enum.Spring:
-		hub.currentSeason = enum.Summer
-	case enum.Summer:
-		hub.currentSeason = enum.Autumn
-	case enum.Autumn:
-		hub.currentSeason = enum.Winter
-	case enum.Winter:
-		// TODO 겨울 라운드가 끝나고 점수 계산하는 기능 추가
-		break
-	}
-	hub.sendSeasonChangeData()
 }
 
 func (hub *Hub) run(ws *websocket.Conn) {
@@ -131,13 +113,21 @@ func (hub *Hub) run(ws *websocket.Conn) {
 			data := MeepleActionData{}
 			utils.ConvertJsonStringToStruct(&data, []byte(serverMessage.Data))
 			hub.handleMeepleAction(&data)
+			if len(data.DetailMeepleActions) == 0 {
+				hub.playerSkipCnt++
+				if hub.playerSkipCnt == hub.PlayerNum {
+					hub.nextSeason()
+				}
+			} else {
+				hub.playerSkipCnt = 0
+			}
 		}
 	}
 }
 
 func Run() {
 	hub := Hub{
-		PlayerNum: 2,
+		PlayerNum: 1,
 		clients:   make(map[*websocket.Conn]string),
 	}
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
