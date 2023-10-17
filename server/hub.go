@@ -121,13 +121,17 @@ func (hub *Hub) run(ws *websocket.Conn) {
 			} else {
 				hub.playerSkipCnt = 0
 			}
+		case enum.Chat:
+			data := ChatData{}
+			utils.ConvertJsonStringToStruct(&data, []byte(serverMessage.Data))
+			hub.handleChat(&data)
 		}
 	}
 }
 
 func Run() {
 	hub := Hub{
-		PlayerNum: 1,
+		PlayerNum: 2,
 		clients:   make(map[*websocket.Conn]string),
 	}
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

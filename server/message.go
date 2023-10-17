@@ -40,3 +40,9 @@ type DetailMeepleActionData struct {
 	Number            int                   `json:"number"`
 	ChildrenMeepleIDs []string              `json:"childrenMeepleIDs"`
 }
+
+type ChatData struct {
+	PlayerID string `json:"playerID"`
+	Content  string `json:"content"`
+	ChatTime string `json:"chatTime"`
+}
