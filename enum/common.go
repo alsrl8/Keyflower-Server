@@ -12,6 +12,7 @@ const (
 	TurnChange                      = "TurnChange"
 	SeasonChange                    = "SeasonChange"
 	MeepleAction                    = "MeepleAction"
+	Chat                            = "Chat"
 )
 
 type MeepleColor string
