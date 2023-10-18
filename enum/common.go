@@ -39,4 +39,5 @@ type MeepleActionType int
 const (
 	Bid MeepleActionType = iota
 	Play
+	BidMore
 )
