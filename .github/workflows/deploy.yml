@@ -29,7 +29,7 @@ jobs:
 
       - name: Build
         run: |
-          go build -o $BUILD_RESULT .
+          CGO_ENABLED=0 go build -o $BUILD_RESULT .
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
