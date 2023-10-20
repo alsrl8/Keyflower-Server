@@ -28,7 +28,6 @@ jobs:
 
       - name: Build
         run: |
-          go mod init
           go build -o server .
 
       - name: Authenticate to Google Cloud
