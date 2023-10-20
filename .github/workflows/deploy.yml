@@ -28,7 +28,7 @@ jobs:
 
       - name: Build
         run: |
-          go build -o server .
+          go build -o run .
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
@@ -40,4 +40,4 @@ jobs:
 
       - name: Transfer to Google Cloud Compute Instance
         run: |
-          gcloud compute scp ./server $USER@$INSTANCE_NAME:~/ --zone=$ZONE
+          gcloud compute scp ./run $USER@$INSTANCE_NAME:~/ --zone=$ZONE
