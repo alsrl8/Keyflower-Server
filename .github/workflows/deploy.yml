@@ -6,6 +6,7 @@ env:
   USER: mingi4754song
   INSTANCE_NAME: server-instance
   ZONE: us-west1-b
+  BUILD_RESULT: run_server
 
 jobs:
   deploy:
@@ -28,7 +29,7 @@ jobs:
 
       - name: Build
         run: |
-          go build -o run .
+          go build -o $BUILD_RESULT .
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
@@ -40,4 +41,4 @@ jobs:
 
       - name: Transfer to Google Cloud Compute Instance
         run: |
-          gcloud compute scp ./run $USER@$INSTANCE_NAME:~/ --zone=$ZONE
+          gcloud compute scp ./$BUILD_RESULT $USER@$INSTANCE_NAME:~/ --zone=$ZONE
